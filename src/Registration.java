@@ -17,7 +17,6 @@ public class Registration {
     public boolean checkUserName(String userName) {
         return userName.contains("_") && userName.length() <= 5;
     }
-
     //Check password complexity
     public boolean checkPasswordComplexity(String Password) {
         Boolean hasCapital = false;
@@ -48,13 +47,10 @@ public class Registration {
     //Register user
     public String registerUser() {
         if (!checkUserName("")) {
-            return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length ";
+            return "Username successfully captured";
         }
-        if (!checkPasswordComplexity("")) {
-            return " Password is not correctly formatted, please ensure that the password contains at least eight characters, a capital letter, and a special character. ";
-        }
-        if (!checkCellPhoneNumber("")) {
-            return "Cell Phone number incorrectly formatted or does not contain international code.";
+        if(!checkPasswordComplexity("")){
+            return "Password successfully captured";
         }
         return "User has been registered successfully";
     }

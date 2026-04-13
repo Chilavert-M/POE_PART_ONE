@@ -34,7 +34,7 @@ public class Main {
         System.out.println(registrationMessage);
 
         // The system will only continue if registration is successful
-        String loginMessage = null;
+        String loginMessage = "";
         if (registrationMessage.equals("User has been registered successfully")) {
 
             System.out.print("Please enter username to login: ");

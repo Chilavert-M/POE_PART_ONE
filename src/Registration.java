@@ -1,86 +1,103 @@
+import java.util.Scanner;
+
 public class Registration {
+    Scanner scanner = new Scanner(System.in);
 
-    private final String firstName;
-    private final String lastName;
-    private final String username;
-    private final String password;
 
-    //Constructor
-    public Registration(String firstName, String lastName, String username, String password, String cellPhoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-    }
+    String firstName;
+    String lastName;
+    String username;
+    String password;
+    String cellphoneNumber;
+
+
 
     //Check userName
-    public boolean checkUserName(String userName) {
-        return userName.contains("_") && userName.length() <= 5;
-    }
+    public boolean checkUserName(String userName) { return userName.contains("_") && userName.length() <= 5;}
+
     //Check password complexity
-    public boolean checkPasswordComplexity(String Password) {
-        Boolean hasCapital = false;
-        Boolean hasNumber = false;
+    public boolean checkPasswordComplexity(String password) {
+        if (password == null || password.length() < 8 ) {
+            return false;
+        }
+        Boolean hasUppercase = false;
         Boolean hasSpecial = false;
+        Boolean hasDigit = false;
 
-        for (int i = 0; i < Password.length(); i++) {
-            char ch = Password.charAt(i);
+        String specialCharacters = "`~!@#$%^&*{}[]:;<>.,?/";
 
-            if (Character.isUpperCase(ch)) {
-                hasCapital = true;
-            } else if (Character.isDigit(ch)) {
-                hasNumber = true;
-            } else if (Character.isLetterOrDigit(ch)) {
-                hasSpecial = true;
+        for(char ch : password.toCharArray()){
+            if(Character.isUpperCase(ch)) {
+                hasUppercase = true;
+            } else if(!Character.isLetterOrDigit(ch)) {
+                hasSpecial =true;
+            } else if(Character.isDigit(ch)) {
+                hasDigit = true;
             }
 
         }
-        return password.length() >= 8 && hasCapital && hasNumber && hasSpecial;
+        return hasUppercase && hasSpecial && hasDigit;
     }
 
-    public boolean checkCellPhoneNumber(String cellPhoneNumber)
-    {
+    public boolean checkCellPhoneNumber(String cellPhoneNumber) {
         // A South African Number contains 9 digits and starts with a +27
         return cellPhoneNumber.matches("^\\+27\\d{9}$");
     }
 
     //Register user
-    public String registerUser() {
-        if (!checkUserName("")) {
-            return "Username successfully captured";
-        }
-        if(!checkPasswordComplexity("")){
-            return "Password successfully captured";
-        }
-        return "User has been registered successfully";
-    }
-    //Getters for login class
-    public String getUsername() {
-        return username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public boolean checkUsername(String s) {
-        return false;
-    }
-    public String checkRegisterUser() {
-        return checkRegisterUser();
-    }
-    public String result() {
-        return "result";
+    public void Register() {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\n======================");
+        System.out.println("Registration");
+
+        System.out.println("Please enter your first name:");
+        firstName = scanner.nextLine();
+
+        System.out.println("Please enter your  last name: ");
+        lastName = scanner.nextLine();
+
+        while (true) {
+
+            System.out.println("Please enter your username( it must contain '_' and be < 5 charcters): ");
+            username = scanner.nextLine();
+
+            if (checkUserName(username)) {
+                System.out.println("Username successully captured");
+                break;
+            } else {
+                System.out.println("Username must contain '_' and must be 5 cahrcters or less.");
+            }
+        }
+
+        while (true) {
+            System.out.println("Enter your password (password must be > 8 chars, uppercase, digit, special): ");
+            password = scanner.nextLine();
+
+            if (checkPasswordComplexity(password)) {
+                System.out.println("Password successfully captured");
+                break;
+            } else {
+                System.out.println("Password must be at least 8 characters long, contain an uppercase, digit, and special character");
+            }
+        }
+
+        while (true) {
+            System.out.println("Enter your Phone Number (+27 or 0 followed by 9 digits): ");
+            cellphoneNumber = scanner.nextLine();
+
+            if (checkCellPhoneNumber(cellphoneNumber)) {
+                System.out.println("Phone number successfully captured");
+                break;
+            } else {
+                System.out.println("Phone number must contain '+27' or start with 0");
+            }
+        }
+
+        System.out.println("\nRegistration Complete!\n");
     }
 
 }
-
-
 
 
 
